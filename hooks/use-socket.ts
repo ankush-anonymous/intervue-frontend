@@ -17,6 +17,7 @@ export function useSocket(): UseSocketReturn {
   const [socket, setSocket] = useState<Socket | null>(null)
   const [isConnected, setIsConnected] = useState(false)
   const [sessionId, setSessionId] = useState<string | null>(null)
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"
 
   const connectSocket = () => {
     if (socket) {
@@ -26,7 +27,7 @@ export function useSocket(): UseSocketReturn {
 
     console.log("🔌 Initializing Socket.IO connection to localhost:5000")
 
-    const socketInstance = io("http://localhost:5000", {
+    const socketInstance = io(`${API_URL}`, {
       transports: ["websocket", "polling"],
       timeout: 20000,
     })
